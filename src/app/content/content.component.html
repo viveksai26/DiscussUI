@@ -1,0 +1,46 @@
+<div class="container">
+  <div *ngIf="(!hideData && timeOut)">
+    <div class="title" style="text-align: center; margin: 20px;">
+      <h4>{{discussionData.title}}</h4>
+    </div>
+    <div style="text-align: center;">
+      <!-- <img class="imageClass" src="{{discussionData.imageUrl}}" alt="image"> -->
+      <img style="max-width: 300px; max-height: 150px;" class="imageClass" src="../../assets/dummy.webp" alt="image">
+    </div>
+    <div> 
+      <button class="btn btn-transparent" (click)="loadPrevious()">LoadPrevious</button>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Message</th>
+            <th scope="col">timeStamp</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let message of messages | keyvalue">
+          <tr>
+            <th scope="row">{{message.value.name}}</th>
+            <td>{{message.value.message}}</td>
+            <td>{{message.value.timestamp}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <form [formGroup]="chatForm" (ngSubmit)="onSubmit()">
+      <div class="formGroup">  
+        <textarea type="text" name="message" class="form-control" formControlName="message"></textarea>
+        <p *ngIf="chatForm.controls.message.errors  && chatForm.controls.message.dirty"> Message is required</p>
+      </div>
+      <br>
+      <button class="btn btn-primary" [disabled]="chatForm.controls.message.errors" type="submit">submit</button>
+    </form>
+  </div>
+  <div *ngIf="hideData" style="text-align: center;">
+    <img class="imageClass" src="../../assets/loader2.gif" alt="image">
+  </div>
+  <div *ngIf="!timeOut" style="text-align: center;">
+    <img class="imageClass" src="../../assets/tenor3.gif" alt="image">
+    <br>
+    <a href="/">Idle Time Out. Refresh</a>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.ng-valid[required]  {
+    border-left: 5px solid #42A948; /* green */
+  }
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+  }
+
+  .imageClass {
+      max-width: 80%;
+      max-height: 50vh;
+      text-align: center;
+  }
+  .container {
+      margin-bottom: 60px;
+  }
