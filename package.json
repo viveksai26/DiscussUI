@@ -10,7 +10,7 @@
     "format": "prettier --write \"src/**/*.ts\"",
     "compodoc": "npx compodoc -p src/tsconfig.app.json",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod"
+    "heroku-postbuild": "ng build"
   },
   "lint-staged": {
     "*.ts": [
