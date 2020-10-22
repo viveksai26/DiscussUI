@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { environment } from 'src/environments/environment';
-const firebaseConfig = environment.config;
-firebase.initializeApp(firebaseConfig);
+import { FirebaseService } from './shared/firebase.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,6 +10,24 @@ firebase.initializeApp(firebaseConfig);
 })
 export class AppComponent implements OnInit {
   title = 'discussUI';
-
-  ngOnInit() {}
+  login: Boolean = true;
+  constructor(private firebaseService: FirebaseService, private router: Router) {}
+  ngOnInit() {
+    const firebaseConfig = environment.config;
+    firebase.initializeApp(firebaseConfig);
+    const myThis = this;
+    // this.firebaseService.userData = '';
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        myThis.firebaseService.userData.next(user);
+        myThis.login = false;
+        myThis.router.navigate([''])
+      } else {
+        myThis.firebaseService.userData.next(null);
+        myThis.login = true;
+        myThis.router.navigate(['login']);
+        console.log('user logged out');
+      }
+    });
+  }
 }

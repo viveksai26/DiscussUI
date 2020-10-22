@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FirebaseService } from '../shared/firebase.service';
 
 @Component({
   selector: 'app-header',
@@ -7,17 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   userName: string;
-  userField: string;
-
+  constructor(private firebaseService: FirebaseService, private router: Router) {}
   ngOnInit() {
-    this.userName = localStorage.getItem('userName');
-    if (!this.userName) {
-      localStorage.setItem('userName', `RandomUser${Math.floor(Math.random() * 1000) + 1}`);
-      this.userName = localStorage.getItem('userName');
+    this.firebaseService.userData.subscribe(
+      data => {
+        if (data) {
+        this.userName = data.displayName
+      } else {
+        this.userName = null
+      }
     }
+    )
   }
-  setUsername() {
-    localStorage.setItem('userName', this.userField);
-    this.userName = localStorage.getItem('userName');
+  login() {
+    this.firebaseService.login();
+  }
+  logout() {
+    this.firebaseService.logout();
   }
 }

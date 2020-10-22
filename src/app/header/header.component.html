@@ -27,13 +27,14 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li> -->
       </ul> 
-      <div style="color:white" *ngIf=userName>
+      <p style="color: beige;">
         {{userName}}
-        <button class="btn btn-outline-primary my-2 my-sm-0" (click)="userName=null">Edit</button>
-      </div>
-      <form *ngIf=!userName class="form-inline my-2 my-lg-0" (ngSubmit)="setUsername()">
-        <input class="form-control mr-sm-2" name="userField" type="search" [(ngModel)]='userField' placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" [disabled]="userField ? false : true" type="submit">Submit</button>
-      </form> 
+      </p>
+      <button class="btn btn-outline-success my-2 my-sm-0" *ngIf="!userName" (click)="login()">
+        Login
+      </button>
+      <button class="btn btn-outline-success my-2 my-sm-0" *ngIf="userName" (click)="logout()">
+        Logout
+      </button>
     </div>
   </nav>

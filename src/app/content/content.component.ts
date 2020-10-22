@@ -10,6 +10,7 @@ import { fromEvent } from 'rxjs';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
+  userName: any;
   // eslint-disable-next-line no-useless-constructor
   constructor(private firebaseService: FirebaseService, private route: ActivatedRoute, private fb: FormBuilder) {}
   id: string;
@@ -34,6 +35,15 @@ export class ContentComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.getDiscussionDetails(this.id);
+    this.firebaseService.userData.subscribe(
+      data => {
+        if (data) {
+        this.userName = data.displayName
+      } else {
+        this.userName = null
+      }
+    }
+    )
   }
 
   loadPrevious() {
@@ -53,7 +63,7 @@ export class ContentComponent implements OnInit {
     this.chatForm.setValue({ ...this.chatForm.value, message: '' });
   }
   writeMessages(id, data) {
-    this.name = localStorage.getItem('userName');
+    this.name = this.userName;
     this.firebaseService.writeMessages(id, { ...data, name: this.name });
   }
   getMessages(id) {

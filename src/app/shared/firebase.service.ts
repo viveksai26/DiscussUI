@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 @Injectable({
   providedIn: 'root'
@@ -10,10 +10,21 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class FirebaseService implements OnInit {
   listenToMessages: BehaviorSubject<any> = new BehaviorSubject(1);
   provider = new firebase.auth.GoogleAuthProvider();
+  userData = new BehaviorSubject(null);
+  userName: any;
   // eslint-disable-next-line no-useless-constructor
   constructor(private router: Router) {}
   ngOnInit() {
     this.provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    this.userData.subscribe(
+      data => {
+        if (data) {
+          this.userName = data.displayName
+        } else {
+          this.userName = null;
+        }
+      }
+    )
   }
   login() {
     firebase.auth().signInWithPopup(this.provider).then(function(result) {
@@ -22,6 +33,7 @@ export class FirebaseService implements OnInit {
       // The signed-in user info.
       var user = result.user;
       console.log(user);
+      this.router.navigate([''])
       // ...
     }).catch(function(error) {
       // Handle Errors here.
@@ -33,25 +45,16 @@ export class FirebaseService implements OnInit {
       var credential = error.credential;
       // ...
     });
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
-        console.log(user);
-        
-        // ...
-      } else {
-        console.log('user sign out');
-        
-        // User is signed out.
-        // ...
-      }
+  }
+  logout() {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log( 'Sign-out successful.');
+      
+    }).catch(function(error) {
+      // An error happened.
+      console.log(error);
+      
     });
   }
   writeMessages(id, data) {
