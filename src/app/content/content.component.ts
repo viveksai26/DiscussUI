@@ -34,17 +34,7 @@ export class ContentComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.getDiscussionDetails(this.id);
-    this.source = fromEvent(document, 'mousemove');
-    this.unsubscriber = this.source.subscribe(val => {
-      console.log('mouse');
-      clearTimeout(this.userActivity);
-      this.setTimeout();
-    });
   }
-
-  setTimeout = () => {
-    this.userActivity = setTimeout(() => this.disableUser(), 3000);
-  };
 
   loadPrevious() {
     this.firebaseService.getOldMessages(this.id, this.messages[Object.keys(this.messages)[0]].timestamp).then(val => {
