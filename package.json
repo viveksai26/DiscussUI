@@ -3,14 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "eslint --ext .ts src --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "compodoc": "npx compodoc -p src/tsconfig.app.json",
-    "e2e": "ng e2e",
-    "heroku-postbuild": "ng build"
+    "e2e": "ng e2e"
   },
   "lint-staged": {
     "*.ts": [
@@ -18,11 +17,6 @@
       "npm run lint",
       "git add"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "private": true,
   "dependencies": {
