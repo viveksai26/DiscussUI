@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "deploy": "ng build --prod --output-path docs --base-href 'https://viveksai26.github.io/DiscussUI/'",
+    "deploy": "ng build --prod --base-href 'https://viveksai26.github.io/DiscussUI/'",
     "lint": "eslint --ext .ts src --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "compodoc": "npx compodoc -p src/tsconfig.app.json",
