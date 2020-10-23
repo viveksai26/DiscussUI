@@ -40,7 +40,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: deploy_dist
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages me
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           BRANCH: gh-pages
