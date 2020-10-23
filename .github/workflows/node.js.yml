@@ -11,28 +11,24 @@ on:
 
 jobs:
   build:
-
+    name: Build and Test
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Install dependencies  
-      run: npm ci
-      name: Build
-      run: npm run build:ci
-    - name: Test
-      run: npm run test:ci
-    - name: Archive build
-    if: success()
-        uses: actions/upload-artifact@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build:ci
+      - name: Test
+        run: npm run test:ci
+      - name: Archive build
+        if: success()
+        uses: actions/upload-artifact@v1
         with:
           name: deploy_dist
           path: dist
@@ -55,5 +51,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
           FOLDER: deploy_dist/angular-demo
