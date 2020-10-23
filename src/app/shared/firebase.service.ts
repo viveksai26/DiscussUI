@@ -27,13 +27,14 @@ export class FirebaseService implements OnInit {
     )
   }
   login() {
+    console.log('login called');
+    
     firebase.auth().signInWithPopup(this.provider).then(function(result) {
       // This gives you a Google Access Token. You can use it to access the Google API.
       var token = result.credential['accessToken'];
       // The signed-in user info.
       var user = result.user;
-      console.log(user);
-      this.router.navigate([''])
+      console.log(user, 'userObj');
       // ...
     }).catch(function(error) {
       // Handle Errors here.
@@ -43,7 +44,7 @@ export class FirebaseService implements OnInit {
       var email = error.email;
       // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
-      console.log(error);
+      console.log(error, 'error object');
       // ...
     });
   }
