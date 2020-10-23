@@ -10,6 +10,7 @@ export class LoginComponent implements OnInit {
   constructor(private firebaseService: FirebaseService) {}
   ngOnInit() {}
   login() {
+    console.log('clicked login'); 
     this.firebaseService.login();
   }
 }
