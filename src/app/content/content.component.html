@@ -5,7 +5,7 @@
     </div>
     <div style="text-align: center;">
       <!-- <img class="imageClass" src="{{discussionData.imageUrl}}" alt="image"> -->
-      <img style="max-width: 300px; max-height: 150px;" class="imageClass" src="../../assets/dummy.webp" alt="image">
+      <img style="max-width: 300px; max-height: 150px;" class="imageClass" src="/assets/dummy.webp" alt="image">
     </div>
     <div> 
       <button class="btn btn-transparent" (click)="loadPrevious()">LoadPrevious</button>
@@ -36,10 +36,10 @@
     </form>
   </div>
   <div *ngIf="hideData" style="text-align: center;">
-    <img class="imageClass" src="../../assets/loader2.gif" alt="image">
+    <img class="imageClass" src="/assets/loader2.gif" alt="image">
   </div>
   <div *ngIf="!timeOut" style="text-align: center;">
-    <img class="imageClass" src="../../assets/tenor3.gif" alt="image">
+    <img class="imageClass" src="/assets/tenor3.gif" alt="image">
     <br>
     <a href="/">Idle Time Out. Refresh</a>
   </div>
