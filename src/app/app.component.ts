@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
         myThis.router.navigate([''])
       } else {
         myThis.firebaseService.userData.next(null);
-        myThis.login = false;
-        myThis.router.navigate(['']);
+        myThis.login = true;
+        myThis.router.navigate(['/login']);
         console.log('user logged out');
       }
     });
