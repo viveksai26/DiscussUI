@@ -3,14 +3,15 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "deploy": "ng build --prod --base-href 'https://viveksai26.github.io/DiscussUI/'",
     "lint": "eslint --ext .ts src --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "compodoc": "npx compodoc -p src/tsconfig.app.json",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
   },
   "lint-staged": {
     "*.ts": [
@@ -42,7 +43,8 @@
     "path": "^0.12.7",
     "rxjs": "~6.6.3",
     "tslib": "^1.14.1",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.10.3",
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
     "@angular-devkit/architect": "^0.900.7",
@@ -76,7 +78,6 @@
     "prettier": "^1.19.1",
     "protractor": "^5.4.4",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0",
-    "typescript": "^3.9.7"
+    "tslint": "~5.15.0"
   }
 }
